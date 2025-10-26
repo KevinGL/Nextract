@@ -10,14 +10,14 @@ export async function main()
     data: [
       {
         username: "Vinke013",
-        email: "vinke013@nextchat.io",
+        email: "vinke013@nextract.io",
         password: await bcrypt.hash("admin", 10),
         isAdmin: true
       },
 
       {
         username: "Nova Recruiter",
-        email: "nova@nextchat.io",
+        email: "nova@nextract.io",
         password: await bcrypt.hash("admin", 10),
         isAdmin: true
       },
