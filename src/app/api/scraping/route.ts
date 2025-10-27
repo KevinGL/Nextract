@@ -1,6 +1,7 @@
 "use server"
 
 import AI_Summary from "@/app/reports/AI_summary";
+import { PrismaClient } from "@prisma/client";
 import * as cheerio from "cheerio";
 import { NextResponse } from "next/server";
 
@@ -59,5 +60,23 @@ export async function GET()
 
     const summary = await AI_Summary(content);
 
-    return NextResponse.json({ summary });
+    const prisma = new PrismaClient();
+    
+    try
+    {
+        await prisma.report.create({
+            data: {
+                createdAt: new Date(),
+                data: JSON.stringify(parts),
+                summary
+            },
+        });
+
+        return NextResponse.json({ success: true, summary }, { status: 200 });
+    }
+    catch(err: any)
+    {
+        console.error("Erreur Prisma:", err);
+        return NextResponse.json({ success: false, error: err.message || "Erreur serveur" }, { status: 500 });
+    }
 }
