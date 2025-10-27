@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import middlewareLogout from "@/security/middleware_logout";
 
 export default function Login()
 {
@@ -12,6 +13,8 @@ export default function Login()
     const [showModal, setShowModal] = useState<boolean>(false);
     const router = useRouter();
     const supabase = createClient();
+
+    middlewareLogout();
 
     async function handleSubmit()
     {
