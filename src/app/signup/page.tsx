@@ -15,7 +15,7 @@ export default function SignUp()
     const supabase = createClient();
     const router = useRouter();
 
-    async function handleSubmit(e: React.FormEvent)
+    async function handleSubmit()
     {
         const { data, error } = await supabase.auth.signUp({ email, password });
 
@@ -58,7 +58,7 @@ export default function SignUp()
                 <label htmlFor="">username</label>
                 <input type="text" required onChange={(e) => setUsername(e.target.value)} />
 
-                <div onClick={(e) => handleSubmit(e)}>S'inscrire</div>
+                <div onClick={handleSubmit}>S'inscrire</div>
             </div>
 
             {

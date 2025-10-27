@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabaseClient";
+import { useRouter } from "next/navigation";
 
 export default function Login()
 {
@@ -9,13 +10,22 @@ export default function Login()
     const [password, setPassword] = useState<string>("");
     const [message, setMessage] = useState<string>("");
     const [showModal, setShowModal] = useState<boolean>(false);
+    const router = useRouter();
     const supabase = createClient();
 
-    async function handleSubmit(e: React.FormEvent)
+    async function handleSubmit()
     {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
-        setMessage(error ? error.message : "Authentification réussie");
-        setShowModal(true);
+
+        if(error)
+        {
+            setMessage(error.message);
+            setShowModal(true);
+        }
+        else
+        {
+            router.push("/dashboard");
+        }
     }
     
     return (
@@ -27,7 +37,7 @@ export default function Login()
                 <label htmlFor="">password</label>
                 <input type="password" required onChange={(e) => setPassword(e.target.value)} />
 
-                <div onClick={(e) => handleSubmit(e)}>Se connecter</div>
+                <div onClick={handleSubmit}>Se connecter</div>
             </div>
 
             {
