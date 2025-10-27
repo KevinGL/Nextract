@@ -68,7 +68,7 @@ export async function GET()
             data: {
                 createdAt: new Date(),
                 data: JSON.stringify(parts),
-                summary
+                summary: summary ?? "Aucun résumé disponible"
             },
         });
 

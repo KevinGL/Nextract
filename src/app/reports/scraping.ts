@@ -66,7 +66,7 @@ export default async function scraping()
             data: {
                 createdAt: new Date(),
                 data: JSON.stringify(parts),
-                summary
+                summary: summary ?? "Aucun résumé disponible"
             },
         });
 
