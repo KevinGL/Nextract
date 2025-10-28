@@ -1,9 +1,11 @@
-"use server"
+
 
 import AI_Summary from "@/app/reports/AI_summary";
 import { PrismaClient } from "@prisma/client";
 import * as cheerio from "cheerio";
 import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
 
 interface ScrapingPart
 {
