@@ -1,3 +1,5 @@
+"use server"
+
 import { GoogleGenAI } from "@google/genai";
 
 export default async function AI_Summary(article: string)

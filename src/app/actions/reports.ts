@@ -1,0 +1,25 @@
+"use server"
+
+import { PrismaClient } from "@prisma/client";
+
+export default async function findAllReports()
+{
+    const prisma: PrismaClient = new PrismaClient();
+
+    const reports: any[] = await prisma.report.findMany();
+
+    const res: any[] = [];
+
+    reports.map((report) =>
+    {
+        //console.log(JSON.parse(report.data).filter((item: any) => item.tag === "h1"));
+        
+        const title = JSON.parse(report.data).filter((item: any) => item.tag === "h1")[0];
+
+        //console.log(title.text);
+        
+        res.push({ summary: report.summary, createdAt: report.createdAt, data: JSON.parse(report.data), title: title.text, id: report.id });
+    });
+    
+    return res;
+}

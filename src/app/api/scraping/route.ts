@@ -13,6 +13,15 @@ interface ScrapingPart
     text: string
 }
 
+function cleanText(text: string): string
+{
+  return text
+    .replace(/\s+/g, " ")
+    .replace(/\u00a0/g, " ")
+    .replace(/•/g, "")
+    .trim();
+}
+
 export async function GET()
 {
     const uri: string = "https://www.franceinfo.fr";
@@ -27,8 +36,8 @@ export async function GET()
     html = await res.text();
     $ = cheerio.load(html);
 
-    const title: string = $('h1.c-title').text().trim();
-    const hat: string = $('p.c-chapo').text().trim();
+    const title: string = cleanText($('h1.c-title').text());
+    const hat: string = cleanText($('p.c-chapo').text());
 
     const parts: ScrapingPart[] = [];
 
@@ -45,7 +54,7 @@ export async function GET()
     $('div.c-body h2, div.c-body p').each((_, el) =>
     {
         const tag: string = el.tagName;
-        const text: string = $(el).text().trim();
+        const text: string = cleanText($(el).text());
         parts.push({ tag, text });
     });
 
@@ -57,8 +66,6 @@ export async function GET()
     {
         content += part.text + "\n\n";
     });
-
-    //console.log(content);
 
     const summary = await AI_Summary(content);
 
