@@ -2,7 +2,7 @@
 
 import { PrismaClient } from "@prisma/client";
 
-export default async function findAllReports()
+export async function findAllReports()
 {
     const prisma: PrismaClient = new PrismaClient();
 
@@ -22,4 +22,15 @@ export default async function findAllReports()
     });
     
     return res;
+}
+
+export async function findOneReport(id: number)
+{
+    const prisma: PrismaClient = new PrismaClient();
+
+    const report = await prisma.report.findUnique({
+        where: { id }
+    });
+
+    return report ? { ...report, data: JSON.parse(report.data) } : null;
 }

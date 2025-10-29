@@ -4,15 +4,17 @@ import Navbar from "@/components/navbar";
 import { createClient } from "@/lib/supabaseClient";
 import { useEffect, useState } from "react";
 import middlewareLogin from "@/security/middleware_login";
-import findAllReports from "../actions/reports";
+import { findAllReports } from "../actions/reports";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard()
 {
     const [user, setUser] = useState<any>(null);
     const [reports, setReports] = useState<any[]>([]);
     const supabase = createClient();
+    const router = useRouter();
 
     middlewareLogin();
 
@@ -97,7 +99,7 @@ export default function Dashboard()
                                             <div className="mt-4 flex justify-end">
                                                 <button
                                                     className="text-sm text-primary hover:text-primary/80 font-medium cursor-pointer"
-                                                    onClick={() => console.log("Voir le rapport", report.id)}
+                                                    onClick={() => router.push(`/reports/${report.id}`)}
                                                 >
                                                     Voir l'article complet →
                                                 </button>
