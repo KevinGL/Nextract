@@ -56,8 +56,6 @@ export default function Chat()
 
     return (
         <>
-            <Navbar />
-            
             {
                 reports.length === 0 &&
 
@@ -83,7 +81,7 @@ export default function Chat()
                                             `}
                                         >
                                             <p className="whitespace-pre-wrap">{message.content}</p>
-                                            <p className="text-xs opacity-70 mt-1">{message.author}</p>
+                                            <p className="text-xs mt-1">{message.author}</p>
                                         </Card>
                                     </div>
                                 )
@@ -100,22 +98,16 @@ export default function Chat()
                                     className="w-full pr-12 bg-muted/50 border-border rounded-full focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                                     value={prompt}
                                     onChange={(e) => setPrompt(e.target.value)}
-                                    onKeyDown={(e) => {
-                                    if (e.key === "Enter" && !e.shiftKey) {
-                                        e.preventDefault();
-                                        sendPrompt();
-                                    }
-                                    }}
                                 />
                                 <button
                                     onClick={sendPrompt}
                                     disabled={!prompt.trim()}
                                     className={`
-                                    absolute right-3 top-1/2 -translate-y-1/2 px-4 py-1.5 rounded-full text-sm font-medium
-                                    ${prompt.trim()
-                                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                                        : "bg-muted text-muted-foreground cursor-not-allowed"}
-                                    transition-all
+                                        absolute right-3 top-1/2 -translate-y-1/2 px-4 py-1.5 rounded-full text-sm font-medium
+                                        ${prompt.trim()
+                                            ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                                            : "bg-muted text-muted-foreground cursor-not-allowed"}
+                                        transition-all
                                     `}
                                 >
                                     Envoyer

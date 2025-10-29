@@ -52,7 +52,6 @@ export default function Dashboard()
 
     return (
         <div>
-            <Navbar />
             {
                 !user &&
 
