@@ -17,7 +17,7 @@ interface Message
 
 export default function Chat()
 {
-    const [user, setUser] = useState<string>("");
+    const [user, setUser] = useState<string | null>("");
     const [reports, setReports] = useState<any[]>([]);
     const [prompt, setPrompt] = useState<string>("");
     const [messages, setMessages] = useState<Message[]>([]);
@@ -28,7 +28,7 @@ export default function Chat()
     {
         getCurrentUser().then((res) =>
         {
-            setUser(res ? res.username : "Unknown");
+            setUser(res?.username ?? "Unknown");
         });
             
         findAllReports().then((res) =>
@@ -45,7 +45,7 @@ export default function Chat()
     const sendPrompt = async () =>
     {
         const updatedMessages = messages;
-        updatedMessages.push({author: user, content: prompt});
+        updatedMessages.push({author: user ?? "Unknown", content: prompt});
         setMessages(updatedMessages);
         
         setPrompt("");
