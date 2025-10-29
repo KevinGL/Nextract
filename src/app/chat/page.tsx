@@ -8,7 +8,6 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import getCurrentUser from "../actions/users";
 import chatAction from "../actions/chat";
-import Navbar from "@/components/navbar";
 
 interface Message
 {
@@ -29,7 +28,7 @@ export default function Chat()
     {
         getCurrentUser().then((res) =>
         {
-            setUser(res.username);
+            setUser(res ? res.username : "Unknown");
         });
             
         findAllReports().then((res) =>
