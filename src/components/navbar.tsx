@@ -17,6 +17,8 @@ export default function Navbar()
     return (
         <div>
             <button onClick={signout}>Déconnexion</button>
+            <button onClick={() => router.push("/dashboard")}>Dashboard</button>
+            <button onClick={() => router.push("/chat")}>Chat IA</button>
         </div>
     )
 }
