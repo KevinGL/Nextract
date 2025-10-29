@@ -33,7 +33,7 @@ export async function findOneReport(id: number)
         where: { id }
     });
 
-    const parsed = JSON.parse(JSON.parse(report.data));
+    const parsed = report ? JSON.parse(JSON.parse(report.data)) : [];
 
-    return report ? { ...report, data: parsed } : null;
+    return { ...report, data: parsed };
 }
