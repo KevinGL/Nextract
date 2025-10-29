@@ -26,19 +26,19 @@ export default function Navbar()
 
                 <nav className="flex items-center space-x-4">
                     <button
-                        className="px-4 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition"
+                        className="px-4 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition hover:cursor-pointer"
                         onClick={() => router.push("/dashboard")}
                     >
                         Dashboard
                     </button>
                 <button
-                    className="px-4 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition"
+                    className="px-4 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition hover:cursor-pointer"
                     onClick={() => router.push("/chat")}
                 >
                     Chat IA
                 </button>
                     <button
-                        className="ml-2 px-4 py-2 rounded-lg bg-white text-indigo-600 font-medium hover:bg-gray-100 transition"
+                        className="ml-2 px-4 py-2 rounded-lg bg-white text-indigo-600 font-medium hover:bg-gray-100 transition hover:cursor-pointer"
                         onClick={signout}
                     >
                         Déconnexion
