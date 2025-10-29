@@ -28,6 +28,8 @@ export default function ViewReport({ params }: { params: Promise<{ id: string }>
 
     return (
         <>
+            <Navbar />
+            
             <div className="max-w-6xl mx-auto mt-10 p-8 bg-card rounded-2xl shadow-md border border-border">
 
                 <div className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed">

@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import getCurrentUser from "../actions/users";
 import chatAction from "../actions/chat";
+import Navbar from "@/components/navbar";
 
 interface Message
 {
@@ -55,6 +56,8 @@ export default function Chat()
 
     return (
         <>
+            <Navbar />
+            
             {
                 reports.length === 0 &&
 
