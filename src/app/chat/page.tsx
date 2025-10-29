@@ -68,24 +68,61 @@ export default function Chat()
                 reports.length > 0 &&
 
                 <>
-                    {
-                        messages.map((message: Message, index: number) =>
+                    <div className="flex flex-col">
                         {
-                            return (
-                                <Card key={index} className="border-border bg-card m-2">
-                                    <p>{message.content}</p>
-                                    <h1>{message.author}</h1>
-                                </Card>
-                            )
-                        })
-                    }
+                            messages.map((message: Message, index: number) =>
+                            {
+                                return (
+                                    <div key={index} className={`flex w-full my-2 ${index % 2 === 0 ? "justify-end" : "justify-start"}`}>
+                                        <Card
+                                            className={`
+                                                max-w-[60%] px-4 py-2 rounded-2xl
+                                                ${index % 2 === 0 
+                                                ? "bg-blue-500 text-white rounded-br-none" 
+                                                : "bg-gray-200 text-black rounded-bl-none"}
+                                            `}
+                                        >
+                                            <p className="whitespace-pre-wrap">{message.content}</p>
+                                            <p className="text-xs opacity-70 mt-1">{message.author}</p>
+                                        </Card>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
 
-                    <Input type="textarea" className="bg-white" onChange={(e) => setPrompt(e.target.value)} value={prompt} />
-                    {
-                        prompt.length > 0 &&
-
-                        <button onClick={sendPrompt}>Envoyer</button>
-                    }
+                    <div>
+                        <div className="max-w-3xl mx-auto flex items-center gap-2 p-4">
+                            <div className="relative flex-1">
+                                <Input
+                                    type="text"
+                                    placeholder="Écris ton message..."
+                                    className="w-full pr-12 bg-muted/50 border-border rounded-full focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                    value={prompt}
+                                    onChange={(e) => setPrompt(e.target.value)}
+                                    onKeyDown={(e) => {
+                                    if (e.key === "Enter" && !e.shiftKey) {
+                                        e.preventDefault();
+                                        sendPrompt();
+                                    }
+                                    }}
+                                />
+                                <button
+                                    onClick={sendPrompt}
+                                    disabled={!prompt.trim()}
+                                    className={`
+                                    absolute right-3 top-1/2 -translate-y-1/2 px-4 py-1.5 rounded-full text-sm font-medium
+                                    ${prompt.trim()
+                                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                                        : "bg-muted text-muted-foreground cursor-not-allowed"}
+                                    transition-all
+                                    `}
+                                >
+                                    Envoyer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </>
             }
         </>
