@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Report" ALTER COLUMN "data" SET DATA TYPE TEXT;

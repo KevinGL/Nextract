@@ -13,8 +13,9 @@ export async function findAllReports()
     reports.map((report) =>
     {
         //console.log(JSON.parse(report.data).filter((item: any) => item.tag === "h1"));
-        
-        const title = JSON.parse(report.data).filter((item: any) => item.tag === "h1")[0];
+
+        const parsed = JSON.parse(JSON.parse(report.data));
+        const title = parsed.filter((item: any) => item.tag === "h1")[0];
 
         //console.log(title.text);
         
@@ -32,5 +33,7 @@ export async function findOneReport(id: number)
         where: { id }
     });
 
-    return report ? { ...report, data: JSON.parse(report.data) } : null;
+    const parsed = JSON.parse(JSON.parse(report.data));
+
+    return report ? { ...report, data: parsed } : null;
 }
