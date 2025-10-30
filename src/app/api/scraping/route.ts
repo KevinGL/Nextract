@@ -3,7 +3,7 @@
 import AI_Summary from "@/app/reports/AI_summary";
 import { PrismaClient } from "@prisma/client";
 import * as cheerio from "cheerio";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
@@ -22,8 +22,17 @@ function cleanText(text: string): string
     .trim();
 }
 
-export async function GET()
+export async function GET(req: NextRequest)
 {
+    const authHeader = req.headers.get("authorization");
+
+    if (!authHeader || authHeader !== `Bearer ${process.env.CRON_KEY}`)
+    {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    
+    //////////////////////////////
+    
     const uri: string = "https://www.franceinfo.fr";
     
     let res = await fetch(uri);

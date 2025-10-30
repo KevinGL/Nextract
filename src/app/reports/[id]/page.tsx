@@ -19,7 +19,7 @@ export default function ViewReport({ params }: { params: Promise<{ id: string }>
         {
             const { id } = res;
 
-            findOneReport(parseInt(id)).then((res) =>
+            findOneReport(id).then((res) =>
             {
                 setReport(res);
             });

@@ -1,5 +1,6 @@
 "use server"
 
+import { decrypt, encrypt } from "@/security/crypto";
 import { PrismaClient } from "@prisma/client";
 
 function parseMaybeJSON(input: unknown)
@@ -53,18 +54,18 @@ export async function findAllReports()
 
         //console.log(title.text);
         
-        res.push({ summary: report.summary, createdAt: report.createdAt, data: JSON.parse(report.data), title: title.text, id: report.id });
+        res.push({ summary: report.summary, createdAt: report.createdAt, data: JSON.parse(report.data), title: title.text, id: encrypt(report.id.toString()) });
     });
     
     return res;
 }
 
-export async function findOneReport(id: number)
+export async function findOneReport(id: string)
 {
     const prisma: PrismaClient = new PrismaClient();
 
     const report = await prisma.report.findUnique({
-        where: { id }
+        where: { id: parseInt(decrypt(id)) }
     });
 
     const parsed = report ? parseMaybeJSON(report.data) : [];
