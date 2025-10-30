@@ -2,10 +2,11 @@
 
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export const signup = async (supaUser: any, username: string, email: string, password: string) =>
 {
-    const prisma = new PrismaClient();
+    //const prisma = new PrismaClient();
                 
     try
     {

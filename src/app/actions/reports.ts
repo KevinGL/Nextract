@@ -1,5 +1,6 @@
 "use server"
 
+import { prisma } from "@/lib/prisma";
 import { decrypt, encrypt } from "@/security/crypto";
 import { PrismaClient } from "@prisma/client";
 
@@ -39,7 +40,7 @@ function parseMaybeJSON(input: unknown)
 
 export async function findAllReports()
 {
-    const prisma: PrismaClient = new PrismaClient();
+    //const prisma: PrismaClient = new PrismaClient();
 
     const reports: any[] = await prisma.report.findMany();
 
@@ -62,7 +63,7 @@ export async function findAllReports()
 
 export async function findOneReport(id: string)
 {
-    const prisma: PrismaClient = new PrismaClient();
+    //const prisma: PrismaClient = new PrismaClient();
 
     const report = await prisma.report.findUnique({
         where: { id: parseInt(decrypt(id)) }

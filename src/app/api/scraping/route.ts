@@ -1,6 +1,7 @@
 
 
 import AI_Summary from "@/app/reports/AI_summary";
+import { prisma } from "@/lib/prisma";
 import { PrismaClient } from "@prisma/client";
 import * as cheerio from "cheerio";
 import { NextRequest, NextResponse } from "next/server";
@@ -78,7 +79,7 @@ export async function GET(req: NextRequest)
 
     const summary = await AI_Summary(content);
 
-    const prisma = new PrismaClient();
+    //const prisma = new PrismaClient();
     
     try
     {
