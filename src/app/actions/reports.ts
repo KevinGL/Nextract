@@ -2,6 +2,40 @@
 
 import { PrismaClient } from "@prisma/client";
 
+function parseMaybeJSON(input: unknown)
+{
+    if (typeof input === "object" && input !== null) return input;
+
+    if (typeof input === "string")
+    {
+        try
+        {
+            const once = JSON.parse(input);
+
+            if(typeof once === "string")
+            {
+                try
+                {
+                    return JSON.parse(once);
+                }
+                catch
+                {
+                    return once; // c'était juste une string normale
+                }
+            }
+            return once; // objet/array
+        }
+        catch
+        {
+            // Pas du JSON, on renvoie la string brute
+        return input;
+        }
+    }
+
+  // Autres types (null/undefined/number/bool) : renvoie tel quel
+  return input;
+}
+
 export async function findAllReports()
 {
     const prisma: PrismaClient = new PrismaClient();
@@ -14,7 +48,7 @@ export async function findAllReports()
     {
         //console.log(JSON.parse(report.data).filter((item: any) => item.tag === "h1"));
 
-        const parsed = JSON.parse(JSON.parse(report.data));
+        const parsed = parseMaybeJSON(report.data);
         const title = parsed.filter((item: any) => item.tag === "h1")[0];
 
         //console.log(title.text);
@@ -33,7 +67,7 @@ export async function findOneReport(id: number)
         where: { id }
     });
 
-    const parsed = report ? JSON.parse(JSON.parse(report.data)) : [];
+    const parsed = report ? parseMaybeJSON(report.data) : [];
 
     return { ...report, data: parsed };
 }
